@@ -14,12 +14,18 @@
 @implementation ENOJSProcess
 
 @synthesize platform;
+@synthesize versions;
+
 
 - (id)init
 {
     self = [super init];
     
     self.platform = @"darwin";
+    
+    self.versions = @{
+                      @"electrino": @"0.0.1"
+                      };
     
     return self;
 }

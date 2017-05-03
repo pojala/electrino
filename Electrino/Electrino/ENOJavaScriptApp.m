@@ -22,6 +22,7 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 
 @interface ENOJavaScriptApp ()
 
+@property (nonatomic, strong) JSVirtualMachine *jsVM;
 @property (nonatomic, strong) JSContext *jsContext;
 @property (nonatomic, strong) NSDictionary *jsModules;
 @property (nonatomic, strong) ENOJSApp *jsAppGlobalObject;
@@ -47,7 +48,8 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 {
     self = [super init];
     
-    self.jsContext = [[JSContext alloc] init];
+    self.jsVM = [[JSVirtualMachine alloc] init];
+    self.jsContext = [[JSContext alloc] initWithVirtualMachine:self.jsVM];
     
     self.jsAppGlobalObject = [[ENOJSApp alloc] init];
     self.jsAppGlobalObject.jsApp = self;

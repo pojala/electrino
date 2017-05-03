@@ -9,9 +9,12 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import <WebKit/WebKit.h>
 
 
 @interface ENOBrowserWindowController : NSWindowController
+
+@property (nonatomic, strong) IBOutlet WebView *testWebView;
 
 - (void)loadURL:(NSURL *)url;
 

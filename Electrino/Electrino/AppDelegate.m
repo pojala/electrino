@@ -10,6 +10,7 @@
 
 #import "AppDelegate.h"
 #import "ENOJavaScriptApp.h"
+#import "ENOBrowserWindowController.h"
 
 
 @interface AppDelegate ()
@@ -35,7 +36,7 @@
     ENOJavaScriptApp *jsApp = [ENOJavaScriptApp sharedApp];
     NSError *error = nil;
     
-    // setup
+    // app setup
     jsApp.jsContext[@"__dirname"] = appDir;
     
     // load code
@@ -47,7 +48,15 @@
         [NSApp terminate:nil]; // --
     }
     
-    // start
+    // for the old-style WebView, it seems that there needs to be an instance initialized early;
+    // otherwise it can go into a weird state where scripts and default styles don't load at all.
+    {
+    ENOBrowserWindowController *windowController = [[ENOBrowserWindowController alloc] initWithWindowNibName:@"ENOBrowserWindowController"];
+    NSWindow *win = windowController.window;
+    [win setFrame:NSMakeRect(0, 0, 1, 1) display:NO];
+    }
+    
+    // send 'ready' event to the main app
     if ( ![jsApp.jsAppGlobalObject emitReady:&error]) {
         NSLog(@"** app.on('ready'): %@", error);
         

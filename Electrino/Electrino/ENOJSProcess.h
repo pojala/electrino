@@ -15,6 +15,7 @@
 @protocol ENOJSProcessExports <JSExport>
 
 @property (nonatomic, copy) NSString *platform;
+@property (nonatomic, copy) NSDictionary *versions;
 
 @end
 

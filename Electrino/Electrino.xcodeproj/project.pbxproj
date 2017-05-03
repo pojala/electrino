@@ -22,6 +22,7 @@
 		5AA9DBEA1EBA502D00EF7CC9 /* ENOJSApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBE91EBA502D00EF7CC9 /* ENOJSApp.m */; };
 		5AA9DBED1EBA55B700EF7CC9 /* ENOJSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */; };
 		5AA9DBF01EBA564600EF7CC9 /* ENOJSConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */; };
+		5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -66,6 +67,7 @@
 		5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSProcess.m; sourceTree = "<group>"; };
 		5AA9DBEE1EBA564600EF7CC9 /* ENOJSConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSConsole.h; sourceTree = "<group>"; };
 		5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSConsole.m; sourceTree = "<group>"; };
+		5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENOBrowserWindowController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				5AA9DBD31EBA0D1200EF7CC9 /* ENOJavaScriptApp.m */,
 				5AA9DBC21EBA08BE00EF7CC9 /* ENOBrowserWindowController.h */,
 				5AA9DBC31EBA08BF00EF7CC9 /* ENOBrowserWindowController.m */,
+				5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */,
 				5AA9DBB71EB9F58B00EF7CC9 /* Assets.xcassets */,
 				5AA9DBB91EB9F58B00EF7CC9 /* MainMenu.xib */,
 				5AA9DBBC1EB9F58B00EF7CC9 /* Info.plist */,
@@ -211,6 +214,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5AA9DBB81EB9F58B00EF7CC9 /* Assets.xcassets in Resources */,
+				5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */,
 				5AA9DBBB1EB9F58B00EF7CC9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -343,6 +347,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Electrino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.lacquer.ElectrinoTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -355,6 +360,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Electrino/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
 				PRODUCT_BUNDLE_IDENTIFIER = fi.lacquer.ElectrinoTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
