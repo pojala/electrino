@@ -1,3 +1,6 @@
+# Mac desktop data
+.DS_Store
+
 # Compiled Object files
 *.slo
 *.lo
