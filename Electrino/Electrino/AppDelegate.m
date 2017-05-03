@@ -24,7 +24,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    NSString *appDir = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"js-app"];
+    NSString *appDir = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"];
     NSString *mainJSPath = [appDir stringByAppendingPathComponent:@"main.js"];
     
     if ( ![[NSFileManager defaultManager] fileExistsAtPath:mainJSPath]) {

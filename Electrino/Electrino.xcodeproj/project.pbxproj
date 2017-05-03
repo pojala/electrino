@@ -29,7 +29,7 @@
 		5AA9DBCE1EBA0BEA00EF7CC9 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
-			dstPath = "js-app";
+			dstPath = app;
 			dstSubfolderSpec = 7;
 			files = (
 				5AA9DBCF1EBA0BFC00EF7CC9 /* index.html in CopyFiles */,
