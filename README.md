@@ -18,6 +18,4 @@ Nothing planned right now. The best way to proceed would probably be to implemen
 
 ### Contact
 
-Pauli Olavi Ojala
-@pauliooj
-pauli @ lacquer.fi
+Pauli Olavi Ojala / @pauliooj / pauli @ lacquer.fi
