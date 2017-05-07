@@ -57,3 +57,6 @@ app.on('activate', function(){
 
 const module = require('module.js')
 module.custom_function();
+
+const module_folder = require('module_folder')
+module_folder.custom_function();

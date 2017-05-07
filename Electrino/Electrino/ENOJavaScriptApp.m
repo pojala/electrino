@@ -77,18 +77,48 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
         [weakSelf _jsException:exception];
     };
     
-    self.jsContext[@"require"] = ^(NSString *arg) {
+	self.jsContext[@"require"] = ^(NSString *arg) {
+		
+		NSString *appDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"] stringByAppendingString:@"/"];
 		
 		if ([arg hasSuffix:@".js"]) { // If a javascript file is being directly referenced
-			NSString *appDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"] stringByAppendingString:@"/"];
 			JSContext *tmpContext = [weakSelf newContextForEvaluation];
 			
 			[tmpContext evaluateScript:[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]] encoding:NSUTF8StringEncoding error:NULL]];
 			return (id)[tmpContext objectForKeyedSubscript:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
-		} else {
+		} else if (weakSelf.jsModules[arg] != nil) {
 			id module = weakSelf.jsModules[arg];
 			return module;
 		}
+		
+		BOOL isDirectory;
+		BOOL doesExist = [[NSFileManager defaultManager] fileExistsAtPath:[appDir stringByAppendingString:arg] isDirectory:&isDirectory];
+		if (doesExist && isDirectory) {
+			// Find where the starting point is within package.json
+			NSData *packageJSON = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:[[appDir stringByAppendingString:arg] stringByAppendingString:@"/package.json"]]];
+			if (packageJSON == nil) {
+				return (id)nil;
+			}
+			NSDictionary *packageDictionary = [NSJSONSerialization JSONObjectWithData:packageJSON options:0 error:NULL];
+			if (packageDictionary == nil || packageDictionary[@"main"] == nil) {
+				return (id)nil;
+			}
+			NSString *mainJSFile = packageDictionary[@"main"];
+			if ([mainJSFile hasPrefix:@"./"]) {
+				mainJSFile = [packageDictionary[@"main"] substringFromIndex:2];
+			}
+			mainJSFile = [@"/" stringByAppendingString:mainJSFile];
+			NSString *jsFileContents = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[[appDir stringByAppendingString:arg] stringByAppendingString:mainJSFile]] encoding:NSUTF8StringEncoding error:NULL];
+			
+			JSContext *tmpContext = [weakSelf newContextForEvaluation];
+			
+			[tmpContext evaluateScript:jsFileContents];
+			return (id)[tmpContext objectForKeyedSubscript:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
+
+		} else {
+			// Module doesn't exist!
+		}
+		return (id)nil;
 		
     };
     
