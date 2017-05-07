@@ -78,14 +78,36 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
     };
     
     self.jsContext[@"require"] = ^(NSString *arg) {
-        id module = weakSelf.jsModules[arg];
-        return module;
+		
+		if ([arg hasSuffix:@".js"]) { // If a javascript file is being directly referenced
+			NSString *appDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"] stringByAppendingString:@"/"];
+			JSContext *tmpContext = [weakSelf newContextForEvaluation];
+			
+			[tmpContext evaluateScript:[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]] encoding:NSUTF8StringEncoding error:NULL]];
+			return (id)[tmpContext objectForKeyedSubscript:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
+		} else {
+			id module = weakSelf.jsModules[arg];
+			return module;
+		}
+		
     };
     
     self.jsContext[@"process"] = [[ENOJSProcess alloc] init];
     self.jsContext[@"console"] = [[ENOJSConsole alloc] init];
     
     return self;
+}
+
+// Create a new context for just evaluating the file
+// ISSUE: JSContext does not include -copyWithZone: method, so we have to manually copy the required methods.
+-(JSContext*)newContextForEvaluation
+{
+	JSContext* newContext = [[JSContext alloc] initWithVirtualMachine:self.jsVM];
+	newContext[@"require"] = self.jsContext[@"require"];
+	newContext[@"process"] = self.jsContext[@"process"];
+	newContext[@"console"] = self.jsContext[@"console"];
+	[newContext evaluateScript:@"var exports = {};"]; // Evaluated so the developer doesnt have to
+	return newContext;
 }
 
 - (void)dealloc
@@ -129,7 +151,7 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
         }
         return NO; // --
     }
-    
+	
     NSLog(@"%s done", __func__);
     
     return YES;

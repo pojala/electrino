@@ -14,7 +14,6 @@
 		5AA9DBC51EBA08BF00EF7CC9 /* ENOBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBC31EBA08BF00EF7CC9 /* ENOBrowserWindowController.m */; };
 		5AA9DBCF1EBA0BFC00EF7CC9 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBC81EBA0BDD00EF7CC9 /* index.html */; };
 		5AA9DBD01EBA0BFC00EF7CC9 /* main.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBC91EBA0BDD00EF7CC9 /* main.js */; };
-		5AA9DBD11EBA0BFC00EF7CC9 /* package.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */; };
 		5AA9DBD41EBA0D1200EF7CC9 /* ENOJavaScriptApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBD31EBA0D1200EF7CC9 /* ENOJavaScriptApp.m */; };
 		5AA9DBDE1EBA4F7B00EF7CC9 /* ENOJSPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBDD1EBA4F7B00EF7CC9 /* ENOJSPath.m */; };
 		5AA9DBE41EBA4F9B00EF7CC9 /* ENOJSUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBE31EBA4F9B00EF7CC9 /* ENOJSUrl.m */; };
@@ -23,6 +22,9 @@
 		5AA9DBED1EBA55B700EF7CC9 /* ENOJSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */; };
 		5AA9DBF01EBA564600EF7CC9 /* ENOJSConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */; };
 		5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */; };
+		BC2FA6DD1EBF17E100016A52 /* module.js in Resources */ = {isa = PBXBuildFile; fileRef = BC2FA6DC1EBF17E100016A52 /* module.js */; };
+		BC2FA6DE1EBF197C00016A52 /* module.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = BC2FA6DC1EBF17E100016A52 /* module.js */; };
+		BC2FA6DF1EBF198A00016A52 /* package.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -32,9 +34,10 @@
 			dstPath = app;
 			dstSubfolderSpec = 7;
 			files = (
+				BC2FA6DF1EBF198A00016A52 /* package.json in CopyFiles */,
+				BC2FA6DE1EBF197C00016A52 /* module.js in CopyFiles */,
 				5AA9DBCF1EBA0BFC00EF7CC9 /* index.html in CopyFiles */,
 				5AA9DBD01EBA0BFC00EF7CC9 /* main.js in CopyFiles */,
-				5AA9DBD11EBA0BFC00EF7CC9 /* package.json in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,6 +71,7 @@
 		5AA9DBEE1EBA564600EF7CC9 /* ENOJSConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSConsole.h; sourceTree = "<group>"; };
 		5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSConsole.m; sourceTree = "<group>"; };
 		5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENOBrowserWindowController.xib; sourceTree = "<group>"; };
+		BC2FA6DC1EBF17E100016A52 /* module.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = module.js; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -131,6 +135,7 @@
 				5AA9DBC81EBA0BDD00EF7CC9 /* index.html */,
 				5AA9DBC91EBA0BDD00EF7CC9 /* main.js */,
 				5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */,
+				BC2FA6DC1EBF17E100016A52 /* module.js */,
 			);
 			path = "test-app";
 			sourceTree = "<group>";
@@ -215,6 +220,7 @@
 			files = (
 				5AA9DBB81EB9F58B00EF7CC9 /* Assets.xcassets in Resources */,
 				5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */,
+				BC2FA6DD1EBF17E100016A52 /* module.js in Resources */,
 				5AA9DBBB1EB9F58B00EF7CC9 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +391,7 @@
 				5AA9DBC11EB9F58B00EF7CC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
