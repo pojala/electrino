@@ -104,11 +104,9 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 				return (id)nil;
 			}
 			NSString *mainJSFile = packageDictionary[@"main"];
-			if ([mainJSFile hasPrefix:@"./"]) {
-				mainJSFile = [packageDictionary[@"main"] substringFromIndex:2];
-			}
+			NSURL *fileURL = [NSURL fileURLWithPath:packageDictionary[@"main"] relativeToURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]]];
 			mainJSFile = [@"/" stringByAppendingString:mainJSFile];
-			NSString *jsFileContents = [NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[[appDir stringByAppendingString:arg] stringByAppendingString:mainJSFile]] encoding:NSUTF8StringEncoding error:NULL];
+			NSString *jsFileContents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:NULL];
 			
 			JSContext *tmpContext = [weakSelf newContextForEvaluation];
 			
