@@ -85,7 +85,8 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 			JSContext *tmpContext = [weakSelf newContextForEvaluation];
 			
 			[tmpContext evaluateScript:[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]] encoding:NSUTF8StringEncoding error:NULL]];
-			return (id)[tmpContext objectForKeyedSubscript:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
+            JSValue *module = tmpContext[@"module"];
+            return (id)[module valueForProperty:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
 		} else if (weakSelf.jsModules[arg] != nil) {
 			id module = weakSelf.jsModules[arg];
 			return module;
@@ -111,8 +112,8 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 			JSContext *tmpContext = [weakSelf newContextForEvaluation];
 			
 			[tmpContext evaluateScript:jsFileContents];
-			return (id)[tmpContext objectForKeyedSubscript:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
-
+            JSValue *module = tmpContext[@"module"];
+            return (id)[module valueForProperty:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
 		} else {
 			// Module doesn't exist!
 		}
@@ -134,7 +135,7 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 	newContext[@"require"] = self.jsContext[@"require"];
 	newContext[@"process"] = self.jsContext[@"process"];
 	newContext[@"console"] = self.jsContext[@"console"];
-	[newContext evaluateScript:@"var exports = {};"]; // Evaluated so the developer doesnt have to
+    [newContext evaluateScript:@"var exports = {}; var module = { exports }"]; // Evaluated so the developer doesnt have to
 	return newContext;
 }
 
