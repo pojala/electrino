@@ -55,8 +55,10 @@ app.on('activate', function(){
   }
 })
 
-const module = require('module.js')
-module.custom_function();
+const module_simple = require('module.js')
+module_simple.custom_function();
 
 const module_folder = require('module_folder')
 module_folder.custom_function();
+
+const module_exports = require('module_exports.js')();
