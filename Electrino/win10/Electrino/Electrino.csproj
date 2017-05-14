@@ -95,6 +95,36 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ChakraHost.cs" />
+    <Compile Include="Hosting\JavaScriptBackgroundWorkItemCallback.cs" />
+    <Compile Include="Hosting\JavaScriptBeforeCollectCallback.cs" />
+    <Compile Include="Hosting\JavaScriptContext.cs" />
+    <Compile Include="Hosting\JavaScriptEngineException.cs" />
+    <Compile Include="Hosting\JavaScriptErrorCode.cs" />
+    <Compile Include="Hosting\JavaScriptException.cs" />
+    <Compile Include="Hosting\JavaScriptFatalException.cs" />
+    <Compile Include="Hosting\JavaScriptMemoryAllocationCallback.cs" />
+    <Compile Include="Hosting\JavaScriptMemoryEventType.cs" />
+    <Compile Include="Hosting\JavaScriptNativeFunction.cs" />
+    <Compile Include="Hosting\JavaScriptObjectBeforeCollectCallback.cs" />
+    <Compile Include="Hosting\JavaScriptObjectFinalizeCallback.cs" />
+    <Compile Include="Hosting\JavaScriptProjectionEnqueueCallback.cs" />
+    <Compile Include="Hosting\JavaScriptPromiseContinuationCallback.cs" />
+    <Compile Include="Hosting\JavaScriptPropertyId.cs" />
+    <Compile Include="Hosting\JavaScriptPropertyIdType.cs" />
+    <Compile Include="Hosting\JavaScriptRuntime.cs" />
+    <Compile Include="Hosting\JavaScriptRuntimeAttributes.cs" />
+    <Compile Include="Hosting\JavaScriptRuntimeVersion.cs" />
+    <Compile Include="Hosting\JavaScriptScriptException.cs" />
+    <Compile Include="Hosting\JavaScriptSerializedScriptLoadSourceCallback.cs" />
+    <Compile Include="Hosting\JavaScriptSerializedScriptUnloadCallback.cs" />
+    <Compile Include="Hosting\JavaScriptSourceContext.cs" />
+    <Compile Include="Hosting\JavaScriptThreadServiceCallback.cs" />
+    <Compile Include="Hosting\JavaScriptTypedArrayType.cs" />
+    <Compile Include="Hosting\JavaScriptUsageException.cs" />
+    <Compile Include="Hosting\JavaScriptValue.cs" />
+    <Compile Include="Hosting\JavaScriptValueType.cs" />
+    <Compile Include="Hosting\Native.cs" />
     <Compile Include="JavaScriptApp.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
