@@ -25,7 +25,6 @@ namespace Electrino
         public MainPage()
         {
             this.InitializeComponent();
-
             webView1.ScriptNotify += ScriptNotify;
 
             webView1.Navigate(new Uri("ms-appx-web:///test-app/index.html"));
