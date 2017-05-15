@@ -58,10 +58,11 @@ namespace Electrino
             if (Native.JsSetProperty(jsAppGlobalObject, JavaScriptPropertyId.FromString("require"), require, false) != JavaScriptErrorCode.NoError)
                 return "failed to define require on global";
 
+            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, new JS.JSPath());
+
 
             JavaScriptValue requireToString;
-            JavaScriptNativeFunction echoDelegate = Echo;
-            if (Native.JsCreateFunction(echoDelegate, IntPtr.Zero, out requireToString) != JavaScriptErrorCode.NoError)
+            if (Native.JsCreateFunction(toString, IntPtr.Zero, out requireToString) != JavaScriptErrorCode.NoError)
                 return "failed to create require toString function";
             if (Native.JsSetProperty(require, JavaScriptPropertyId.FromString("toString"), requireToString, false) != JavaScriptErrorCode.NoError)
                 return "failed to define tostring on require";
@@ -71,10 +72,9 @@ namespace Electrino
             return "NoError";
         }
 
-        private static JavaScriptValue Echo(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        private static JavaScriptValue toString(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
-            System.Diagnostics.Debug.WriteLine("require.tostring called");
-            return JavaScriptValue.Invalid;
+            return JavaScriptValue.FromString("Require module");
         }
 
         public string runScript(string script)

@@ -33,7 +33,7 @@ namespace Electrino
             this.InitializeComponent();
             this.Suspending += OnSuspending;
             System.Diagnostics.Debug.WriteLine(jsApp.init());
-            System.Diagnostics.Debug.WriteLine(jsApp.runScript("require.toString()"));
+            System.Diagnostics.Debug.WriteLine(jsApp.runScript("path.join('blah', 'foo');"));
         }
 
         /// <summary>

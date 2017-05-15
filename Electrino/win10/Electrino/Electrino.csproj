@@ -95,7 +95,6 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ChakraHost.cs" />
     <Compile Include="Hosting\JavaScriptBackgroundWorkItemCallback.cs" />
     <Compile Include="Hosting\JavaScriptBeforeCollectCallback.cs" />
     <Compile Include="Hosting\JavaScriptContext.cs" />
@@ -126,6 +125,8 @@
     <Compile Include="Hosting\JavaScriptValueType.cs" />
     <Compile Include="Hosting\Native.cs" />
     <Compile Include="JavaScriptApp.cs" />
+    <Compile Include="JS\JSModule.cs" />
+    <Compile Include="JS\JSPath.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
