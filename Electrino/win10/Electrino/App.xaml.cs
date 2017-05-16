@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
+using Windows.Storage;
 
 namespace Electrino
 {
@@ -32,8 +34,19 @@ namespace Electrino
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            System.Diagnostics.Debug.WriteLine(jsApp.init());
-            System.Diagnostics.Debug.WriteLine(jsApp.runScript("path.join('blah', 'foo');"));
+            Debug.WriteLine(jsApp.init());
+            RunJS("test.js");
+            RunJS("main.js");
+        }
+
+        private async void RunJS(string filename)
+        {
+            StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///test-app/" + filename));
+            string js;
+            using (StreamReader sRead = new StreamReader(await file.OpenStreamForReadAsync()))
+                js = await sRead.ReadToEndAsync();
+
+            Debug.WriteLine(jsApp.runScript(js));
         }
 
         /// <summary>

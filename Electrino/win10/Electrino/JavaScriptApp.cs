@@ -13,9 +13,8 @@ namespace Electrino
     {
         private JavaScriptSourceContext currentSourceContext = JavaScriptSourceContext.FromIntPtr(IntPtr.Zero);
         private JavaScriptRuntime runtime;
-        private Dictionary<string, string> jsModules = new Dictionary<string, string>();
-        private JavaScriptValue require;
         private JavaScriptValue jsAppGlobalObject;
+        private JS.JSRequire require;
         private static Queue taskQueue = new Queue();
         private static readonly JavaScriptPromiseContinuationCallback promiseContinuationDelegate = promiseContinuationCallback;
 
@@ -49,25 +48,11 @@ namespace Electrino
                 return "failed to start debugging.";
 
 
-
-            if (Native.JsCreateObject(out require) != JavaScriptErrorCode.NoError)
-                return "failed to create require";
             if (Native.JsGetGlobalObject(out jsAppGlobalObject) != JavaScriptErrorCode.NoError)
                 return "failed to get global object";
 
-            if (Native.JsSetProperty(jsAppGlobalObject, JavaScriptPropertyId.FromString("require"), require, false) != JavaScriptErrorCode.NoError)
-                return "failed to define require on global";
-
-            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, new JS.JSPath());
-
-
-            JavaScriptValue requireToString;
-            if (Native.JsCreateFunction(toString, IntPtr.Zero, out requireToString) != JavaScriptErrorCode.NoError)
-                return "failed to create require toString function";
-            if (Native.JsSetProperty(require, JavaScriptPropertyId.FromString("toString"), requireToString, false) != JavaScriptErrorCode.NoError)
-                return "failed to define tostring on require";
-
-
+            require = new JS.JSRequire(jsAppGlobalObject);
+            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, new JS.JSConsole());
 
             return "NoError";
         }
