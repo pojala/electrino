@@ -9,7 +9,7 @@ namespace Electrino.JS
 {
     class JSPath : JS.AbstractJSModule
     {
-        public JSPath(): base("path")
+        public JSPath() : base("path")
         {
             AttachMethod(Join, "join");
         }

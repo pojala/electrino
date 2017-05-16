@@ -25,13 +25,19 @@ namespace Electrino.JS
             AttachModule(module.GetModule(), subModule);
         }
 
-        private static void AttachMethod(AbstractJSModule module, JavaScriptNativeFunction method, string id)
+
+        public static void AttachMethod(JavaScriptValue module, JavaScriptNativeFunction method, string id)
         {
             JavaScriptValue requireToString;
             Debug.Assert(Native.JsCreateFunction(method, IntPtr.Zero, out requireToString) == JavaScriptErrorCode.NoError, "Failed to create method");
 
-            Debug.Assert(Native.JsSetProperty(module.GetModule(), JavaScriptPropertyId.FromString(id), requireToString, false) 
+            Debug.Assert(Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id), requireToString, false)
                 == JavaScriptErrorCode.NoError, "Failed to define tostring on require");
+        }
+
+        public static void AttachMethod(AbstractJSModule module, JavaScriptNativeFunction method, string id)
+        {
+            AttachMethod(module.GetModule(), method, id);
         }
 
         public static string JSValToString(JavaScriptValue val)
@@ -48,6 +54,8 @@ namespace Electrino.JS
             this.id = id;
 
             Debug.Assert(Native.JsCreateObject(out module) == JavaScriptErrorCode.NoError, "Failed to create module");
+
+            AttachMethod(ToString, "toString");
         }
 
         public void AttachModule(AbstractJSModule subModule)
@@ -68,6 +76,12 @@ namespace Electrino.JS
         public string GetId()
         {
             return id;
+        }
+
+        protected JavaScriptValue ToString(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            // TODO: Track members and list recursively
+            return JavaScriptValue.FromString("[Module: id]");
         }
     }
 }
