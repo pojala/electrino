@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ChakraHost.Hosting;
 
 namespace Electrino.JS
 {
-    class JSElectrino : AbstractJSModule
+    class JSBrowserWindow : AbstractJSModule
     {
-        public JSElectrino() : base("electrino")
+        public JSBrowserWindow() : base("BrowserWindow", true)
         {
-            AttachModule(new JSBrowserWindow());
+
         }
     }
 }

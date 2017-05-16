@@ -7,24 +7,23 @@ using ChakraHost.Hosting;
 
 namespace Electrino.JS
 {
-    class JSRequire
+    class JSRequire : AbstractJSModule
     {
         private Dictionary<string, AbstractJSModule> modules = new Dictionary<string, AbstractJSModule>();
-        private string id = "require";
 
-        public JSRequire(JavaScriptValue global)
+        public JSRequire() : base("require", true)
         {
             AddModule(new JSPath());
             AddModule(new JSUrl());
-            AbstractJSModule.AttachMethod(global, Main, id);
+            AddModule(new JSElectrino());
         }
 
         private void AddModule(AbstractJSModule module)
         {
-            this.modules.Add(module.GetId(), module);
+            modules.Add(module.GetId(), module);
         }
 
-        private JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        protected override JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
             string moduleKey = AbstractJSModule.JSValToString(arguments[1]);
             AbstractJSModule module;

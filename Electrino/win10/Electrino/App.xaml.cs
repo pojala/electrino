@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
+using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace Electrino
@@ -34,20 +35,24 @@ namespace Electrino
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            Run();
+        }
+
+        private async void Run()
+        { 
+            string js = await ReadJS("test.js");
             Debug.WriteLine(jsApp.init());
-            RunJS("test.js");
+            Debug.WriteLine(jsApp.runScript(js));
             //RunJS("main.js");
         }
 
-        private async void RunJS(string filename)
+        private async Task<string> ReadJS(string filename)
         {
             StorageFile file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///test-app/" + filename));
             string js;
             using (StreamReader sRead = new StreamReader(await file.OpenStreamForReadAsync()))
                 js = await sRead.ReadToEndAsync();
-
-            Debug.WriteLine(js);
-            Debug.WriteLine(jsApp.runScript(js));
+            return js;
         }
 
         /// <summary>

@@ -13,8 +13,10 @@ namespace Electrino
     {
         private JavaScriptSourceContext currentSourceContext = JavaScriptSourceContext.FromIntPtr(IntPtr.Zero);
         private JavaScriptRuntime runtime;
+        private JavaScriptContext context;
+        private JS.AbstractJSModule console;
+        private JS.AbstractJSModule require;
         private JavaScriptValue jsAppGlobalObject;
-        private JS.JSRequire require;
         private static Queue taskQueue = new Queue();
         private static readonly JavaScriptPromiseContinuationCallback promiseContinuationDelegate = promiseContinuationCallback;
 
@@ -26,9 +28,8 @@ namespace Electrino
 
         public string init()
         {
-            JavaScriptContext context;
 
-            if (Native.JsCreateRuntime(JavaScriptRuntimeAttributes.None, null, out runtime) != JavaScriptErrorCode.NoError)
+            if (Native.JsCreateRuntime(JavaScriptRuntimeAttributes.EnableIdleProcessing, null, out runtime) != JavaScriptErrorCode.NoError)
                 return "failed to create runtime.";
 
             if (Native.JsCreateContext(runtime, out context) != JavaScriptErrorCode.NoError)
@@ -51,8 +52,10 @@ namespace Electrino
             if (Native.JsGetGlobalObject(out jsAppGlobalObject) != JavaScriptErrorCode.NoError)
                 return "failed to get global object";
 
-            require = new JS.JSRequire(jsAppGlobalObject);
-            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, new JS.JSConsole());
+            console = new JS.JSConsole();
+            require = new JS.JSRequire();
+            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, require);
+            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, console);
 
             return "NoError";
         }
@@ -61,7 +64,7 @@ namespace Electrino
         {
             return JavaScriptValue.FromString("Require module");
         }
-
+            
         public string runScript(string script)
         {
             IntPtr returnValue;
@@ -69,7 +72,7 @@ namespace Electrino
             try
             {
                 JavaScriptValue result;
-
+                // failing because of "no context"
                 if (Native.JsRunScript(script, currentSourceContext++, "", out result) != JavaScriptErrorCode.NoError)
                 {
                     // Get error message and clear exception
@@ -94,13 +97,13 @@ namespace Electrino
 
                     return Marshal.PtrToStringUni(message);
                 }
-                
+
                 // Execute promise tasks stored in taskQueue 
                 while (taskQueue.Count != 0)
-                {                
-                    JavaScriptValue task = (JavaScriptValue) taskQueue.Dequeue();
+                {
+                    JavaScriptValue task = (JavaScriptValue)taskQueue.Dequeue();
                     JavaScriptValue promiseResult;
-                    JavaScriptValue[] args = new JavaScriptValue[1] {jsAppGlobalObject};
+                    JavaScriptValue[] args = new JavaScriptValue[1] { jsAppGlobalObject };
                     Native.JsCallFunction(task, args, 1, out promiseResult);
                     task.Release();
                 }

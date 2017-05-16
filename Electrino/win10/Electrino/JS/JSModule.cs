@@ -13,6 +13,7 @@ namespace Electrino.JS
     {
         private JavaScriptValue module;
         private string id;
+        private bool asFunction;
 
         public static void AttachModule(JavaScriptValue module, AbstractJSModule subModule)
         {
@@ -49,11 +50,25 @@ namespace Electrino.JS
             return Marshal.PtrToStringUni(returnValue);
         }
 
-        public AbstractJSModule(string id)
+        /// <summary>
+        /// Construct a module either as an Object or function
+        /// If function is used then the class must override the Main method
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="asFunction"></param>
+        public AbstractJSModule(string id, bool asFunction = false)
         {
             this.id = id;
+            this.asFunction = asFunction;
 
-            Debug.Assert(Native.JsCreateObject(out module) == JavaScriptErrorCode.NoError, "Failed to create module");
+            if (asFunction)
+            {
+                Debug.Assert(Native.JsCreateFunction(Main, IntPtr.Zero, out module) == JavaScriptErrorCode.NoError, "Failed to create function");
+            }
+            else
+            {
+                Debug.Assert(Native.JsCreateObject(out module) == JavaScriptErrorCode.NoError, "Failed to create module");
+            }
 
             AttachMethod(ToString, "toString");
         }
@@ -81,7 +96,12 @@ namespace Electrino.JS
         protected JavaScriptValue ToString(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
             // TODO: Track members and list recursively
-            return JavaScriptValue.FromString("[Module: id]");
+            return JavaScriptValue.FromString("[" + (asFunction ? "Function" : "Module") + ": id]");
+        }
+
+        protected virtual JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            return JavaScriptValue.Undefined;
         }
     }
 }
