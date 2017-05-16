@@ -36,7 +36,7 @@ namespace Electrino
             this.Suspending += OnSuspending;
             Debug.WriteLine(jsApp.init());
             RunJS("test.js");
-            RunJS("main.js");
+            //RunJS("main.js");
         }
 
         private async void RunJS(string filename)
@@ -46,6 +46,7 @@ namespace Electrino
             using (StreamReader sRead = new StreamReader(await file.OpenStreamForReadAsync()))
                 js = await sRead.ReadToEndAsync();
 
+            Debug.WriteLine(js);
             Debug.WriteLine(jsApp.runScript(js));
         }
 

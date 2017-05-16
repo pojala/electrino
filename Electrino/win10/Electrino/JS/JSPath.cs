@@ -7,7 +7,7 @@ using ChakraHost.Hosting;
 
 namespace Electrino.JS
 {
-    class JSPath : JS.AbstractJSModule
+    class JSPath : AbstractJSModule
     {
         public JSPath() : base("path")
         {

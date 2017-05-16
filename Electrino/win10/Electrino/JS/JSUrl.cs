@@ -7,7 +7,7 @@ using ChakraHost.Hosting;
 
 namespace Electrino.JS
 {
-    class JSUrl : JS.AbstractJSModule
+    class JSUrl : AbstractJSModule
     {
         public JSUrl() : base("url")
         {

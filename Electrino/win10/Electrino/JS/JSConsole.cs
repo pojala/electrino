@@ -8,7 +8,7 @@ using ChakraHost.Hosting;
 
 namespace Electrino.JS
 {
-    class JSConsole : JS.AbstractJSModule
+    class JSConsole : AbstractJSModule
     {
         public JSConsole() : base("console")
         {
