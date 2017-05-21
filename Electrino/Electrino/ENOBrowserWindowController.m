@@ -36,11 +36,16 @@
 
 @implementation ENOBrowserWindowController
 
-- (id)init
+- (instancetype)initAsResizable:(BOOL)resizable hasFrame:(BOOL)hasFrame
 {
-    NSWindowStyleMask styleMask = NSWindowStyleMaskTitled
-    | NSWindowStyleMaskMiniaturizable
-    | NSWindowStyleMaskResizable;
+    NSWindowStyleMask styleMask = 0;
+    if (resizable) {
+        styleMask |= NSWindowStyleMaskResizable;
+    }
+    if (hasFrame) {
+        styleMask |= NSWindowStyleMaskTitled;
+        styleMask |= NSWindowStyleMaskMiniaturizable;
+    }
     
     NSWindow *window = [[NSWindow alloc] initWithContentRect:NSMakeRect(100, 100, 640, 480)
                                                    styleMask:styleMask
@@ -102,6 +107,7 @@
     
 }
 
+#if !USE_WKWEBVIEW
 - (void)webView:(WebView *)webView didCreateJavaScriptContext:(JSContext *)jsContext forFrame:(WebFrame *)frame
 {
     ENOJSProcess *process = [[ENOJSProcess alloc] init];
@@ -114,5 +120,6 @@
         self.window.title = title;
     }
 }
+#endif
 
 @end

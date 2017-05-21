@@ -1,4 +1,4 @@
-//
+;//
 //  ENOJSBrowserWindow.h
 //  Electrino
 //
@@ -15,11 +15,24 @@
 
 @protocol ENOJSBrowserWindowExports <JSExport>
 
-- (instancetype)initWithDictionary:(NSDictionary *)dict;
+- (instancetype)initWithOptions:(NSDictionary *)opts;
 
 - (void)loadURL:(NSString *)url;
 
-@property (nonatomic, copy) void (^on)(NSString *eventName, JSValue *callback);
+- (BOOL)isVisible;
+- (void)show;
+- (void)hide;
+- (void)focus;
+
+- (NSDictionary *)getBounds;
+
+JSExportAs(setPosition,
+- (void)setPositionX:(double)x y:(double)y
+);
+
+JSExportAs(on,
+- (void)on:(NSString *)event withCallback:(JSValue *)cb
+);
 
 @end
 

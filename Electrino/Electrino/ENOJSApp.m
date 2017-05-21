@@ -21,33 +21,24 @@
 
 @implementation ENOJSApp
 
-@synthesize on;
-
 - (id)init
 {
     self = [super init];
     
     self.eventCallbacks = [NSMutableDictionary dictionary];
     
-    __block __weak ENOJSApp *weakSelf = self;
-    
-    self.on = ^(NSString *event, JSValue *cb) {
-        if (event.length > 0 && cb) {
-            NSMutableArray *cbArr = weakSelf.eventCallbacks[event] ?: [NSMutableArray array];
-            [cbArr addObject:cb];
-            
-            weakSelf.eventCallbacks[event] = cbArr;
-        }
-    };
-    
     return self;
 }
 
-- (void)dealloc
+- (void)on:(NSString *)event withCallback:(JSValue *)cb
 {
-    self.on = NULL;
+    if (event.length > 0 && cb) {
+        NSMutableArray *cbArr = self.eventCallbacks[event] ?: [NSMutableArray array];
+        [cbArr addObject:cb];
+        
+        self.eventCallbacks[event] = cbArr;
+    }
 }
-
 
 - (BOOL)emitReady:(NSError **)outError
 {

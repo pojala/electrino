@@ -15,7 +15,9 @@
 
 @protocol ENOJSAppExports <JSExport>
 
-@property (nonatomic, copy) void (^on)(NSString *eventName, JSValue *callback);
+JSExportAs(on,
+- (void)on:(NSString *)event withCallback:(JSValue *)cb
+);
 
 @end
 
