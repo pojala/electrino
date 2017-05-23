@@ -41,6 +41,18 @@ namespace Electrino.JS
             AttachMethod(module.GetModule(), method, id);
         }
 
+
+        public static void AttachProperty(JavaScriptValue module, JavaScriptValue property, string id)
+        {
+            Debug.Assert(Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id),
+                property, false) == JavaScriptErrorCode.NoError, "Failed to attach property");
+        }
+
+        public static void AttachProperty(AbstractJSModule module, JavaScriptValue method, string id)
+        {
+            AttachProperty(module.GetModule(), method, id);
+        }
+
         public static string JSValToString(JavaScriptValue val)
         {
             val = val.ConvertToString();
@@ -83,6 +95,11 @@ namespace Electrino.JS
             AttachMethod(this, method, id);
         }
 
+        public void AttachProperty(JavaScriptValue property, string id)
+        {
+            AttachProperty(this, property, id);
+        }
+
         public JavaScriptValue GetModule()
         {
             return module;
@@ -96,7 +113,7 @@ namespace Electrino.JS
         protected JavaScriptValue ToString(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
             // TODO: Track members and list recursively
-            return JavaScriptValue.FromString("[" + (asFunction ? "Function" : "Module") + ": id]");
+            return JavaScriptValue.FromString("[" + (asFunction ? "Function" : "Module") + ": " + id + "]");
         }
 
         protected virtual JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)

@@ -16,17 +16,18 @@ namespace Electrino
         private JavaScriptContext context;
         private JS.AbstractJSModule console;
         private JS.AbstractJSModule require;
+        private JS.AbstractJSModule process;
         private JavaScriptValue jsAppGlobalObject;
         private static Queue taskQueue = new Queue();
-        private static readonly JavaScriptPromiseContinuationCallback promiseContinuationDelegate = promiseContinuationCallback;
+        private static readonly JavaScriptPromiseContinuationCallback promiseContinuationDelegate = PromiseContinuationCallback;
 
-        private static void promiseContinuationCallback(JavaScriptValue task, IntPtr callbackState)
+        private static void PromiseContinuationCallback(JavaScriptValue task, IntPtr callbackState)
         {
             taskQueue.Enqueue(task);
             task.AddRef();
         }
 
-        public string init()
+        public string Init()
         {
 
             if (Native.JsCreateRuntime(JavaScriptRuntimeAttributes.EnableIdleProcessing, null, out runtime) != JavaScriptErrorCode.NoError)
@@ -54,18 +55,15 @@ namespace Electrino
 
             console = new JS.JSConsole();
             require = new JS.JSRequire();
+            process = new JS.JSProcess();
             JS.AbstractJSModule.AttachModule(jsAppGlobalObject, require);
             JS.AbstractJSModule.AttachModule(jsAppGlobalObject, console);
+            JS.AbstractJSModule.AttachModule(jsAppGlobalObject, process);
 
             return "NoError";
         }
-
-        private static JavaScriptValue toString(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
-        {
-            return JavaScriptValue.FromString("Require module");
-        }
             
-        public string runScript(string script)
+        public string RunScript(string script)
         {
             IntPtr returnValue;
 

@@ -125,11 +125,13 @@
     <Compile Include="Hosting\JavaScriptValueType.cs" />
     <Compile Include="Hosting\Native.cs" />
     <Compile Include="JavaScriptApp.cs" />
+    <Compile Include="JS\JSApp.cs" />
     <Compile Include="JS\JSBrowserWindow.cs" />
     <Compile Include="JS\JSConsole.cs" />
     <Compile Include="JS\JSElectrino.cs" />
     <Compile Include="JS\JSModule.cs" />
     <Compile Include="JS\JSPath.cs" />
+    <Compile Include="JS\JSProcess.cs" />
     <Compile Include="JS\JSRequire.cs" />
     <Compile Include="JS\JSUrl.cs" />
     <Compile Include="MainPage.xaml.cs">

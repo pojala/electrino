@@ -8,43 +8,20 @@ using System.Diagnostics;
 
 namespace Electrino.JS
 {
-    class JSBrowserWindow : AbstractJSModule
-    {
-        public JSBrowserWindow() : base("BrowserWindow", true)
-        {
-
-        }
-
-        protected override JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
-        {
-            if (!isConstructCall)
-            {
-                return JavaScriptValue.CreateTypeError(JavaScriptValue.FromString("BrowserWindow must be constructed"));
-            }
-
-            JSBrowserWindowInstance instance = new JSBrowserWindowInstance();
-            return instance.GetModule();
-        }
-    }
-
-    class JSBrowserWindowInstance : AbstractJSModule
+    class JSApp : AbstractJSModule
     {
         private Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>> listeners = new Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>>();
-
-        public JSBrowserWindowInstance() : base("BrowserWindowInstance")
+        private static JSApp instance;
+        public JSApp() : base("app")
         {
-            AttachMethod(LoadURL, "loadURL");
+            instance = this;
             AttachMethod(On, "on");
-            App.NewWindow();
+            AttachMethod(Quit, "quit");
         }
-        protected JavaScriptValue LoadURL(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+
+        public static JSApp GetInstance()
         {
-            string url = JSValToString(arguments[1]);
-            if (!MainPage.LoadURL(url))
-            {
-                Debug.WriteLine("Failed to load url " + url);
-            }
-            return JavaScriptValue.Undefined;
+            return instance;
         }
 
         private JavaScriptValue On(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
@@ -62,6 +39,25 @@ namespace Electrino.JS
             }
             eventListeners.Add(Tuple.Create(arguments[2], arguments[0]));
             arguments[2].AddRef();
+            return JavaScriptValue.Undefined;
+        }
+
+        public void Call(string key)
+        {
+            List<Tuple<JavaScriptValue, JavaScriptValue>> eventListeners;
+            listeners.TryGetValue(key, out eventListeners);
+            if (eventListeners != null)
+            {
+                foreach (Tuple<JavaScriptValue, JavaScriptValue> listener in eventListeners)
+                {
+                    listener.Item1.CallFunction(new JavaScriptValue[] { listener.Item2 });
+                }
+            }
+        }
+
+        private JavaScriptValue Quit(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
+        {
+            Windows.UI.Xaml.Application.Current.Exit();
             return JavaScriptValue.Undefined;
         }
     }

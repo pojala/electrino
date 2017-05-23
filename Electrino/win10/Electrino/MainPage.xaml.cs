@@ -22,15 +22,27 @@ namespace Electrino
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        private static MainPage instance = null;
         public MainPage()
         {
-            this.InitializeComponent();
+            instance = this;
+            InitializeComponent();
             webView1.ScriptNotify += ScriptNotify;
 
-            webView1.Navigate(new Uri("ms-appx-web:///test-app/index.html"));
+            //webView1.Navigate(new Uri("ms-appx-web:///test-app/index.html"));
         }
 
-        private void webView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        public static bool LoadURL(string url)
+        {
+            if (instance == null)
+            {
+                return false;
+            }
+            instance.webView1.Navigate(new Uri(url));
+            return true;
+        }
+
+        private void WebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             AddRenderApis();
         }

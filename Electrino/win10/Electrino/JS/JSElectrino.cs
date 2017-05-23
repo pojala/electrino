@@ -11,6 +11,7 @@ namespace Electrino.JS
     {
         public JSElectrino() : base("electrino")
         {
+            AttachModule(new JSApp());
             AttachModule(new JSBrowserWindow());
         }
     }

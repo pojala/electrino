@@ -9,7 +9,7 @@
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <WebView x:Name="webView1" Source="http://www.google.com"
-                 NavigationStarting="webView_NavigationStarting" />
+                 NavigationStarting="WebView_NavigationStarting" />
 
     </Grid>
 </Page>

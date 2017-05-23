@@ -26,6 +26,8 @@ namespace Electrino
     sealed partial class App : Application
     {
         private JavaScriptApp jsApp = new JavaScriptApp();
+        private static App instance;
+        private LaunchActivatedEventArgs launchArgs;
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -33,17 +35,17 @@ namespace Electrino
         /// </summary>
         public App()
         {
+            instance = this;
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            Run();
         }
 
         private async void Run()
-        { 
-            string js = await ReadJS("test.js");
-            Debug.WriteLine(jsApp.init());
-            Debug.WriteLine(jsApp.runScript(js));
-            //RunJS("main.js");
+        {
+            string js = await ReadJS("main.js");
+            Debug.WriteLine(jsApp.Init());
+            Debug.WriteLine(jsApp.RunScript(js));
+            Ready();
         }
 
         private async Task<string> ReadJS(string filename)
@@ -62,6 +64,37 @@ namespace Electrino
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
+            launchArgs = e;
+            Run();
+        }
+
+        private void Ready() { 
+            if (JS.JSApp.GetInstance() != null)
+            {
+                JS.JSApp.GetInstance().Call("ready");
+            }
+        }
+
+        private void Suspended()
+        {
+            if (JS.JSApp.GetInstance() != null)
+            {
+                JS.JSApp.GetInstance().Call("window-all-closed");
+            }
+        }
+
+        public static void NewWindow()
+        {
+            if (instance == null)
+            {
+                Debug.WriteLine("App no ready yet");
+                return;
+            }
+            App.instance._NewWindow();
+        }
+
+        private void _NewWindow()
+        {
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -72,28 +105,22 @@ namespace Electrino
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
+                
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (rootFrame.Content == null)
             {
-                if (rootFrame.Content == null)
-                {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                }
-                // Ensure the current window is active
-                Window.Current.Activate();
+                // When the navigation stack isn't restored navigate to the first page,
+                // configuring the new page by passing required information as a navigation
+                // parameter
+                rootFrame.Navigate(typeof(MainPage), launchArgs.Arguments);
             }
+            // Ensure the current window is active
+            Window.Current.Activate();
+
         }
 
         /// <summary>
@@ -118,6 +145,7 @@ namespace Electrino
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+            Suspended();
         }
     }
 }
