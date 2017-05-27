@@ -56,7 +56,7 @@ namespace Electrino.JS
         public static string JSValToString(JavaScriptValue val)
         {
             val = val.ConvertToString();
-            IntPtr returnValue;
+            IntPtr returnValue = IntPtr.Zero;
             UIntPtr stringLength;
             Debug.Assert(Native.JsStringToPointer(val, out returnValue, out stringLength) == JavaScriptErrorCode.NoError, "Failed to convert return value.");
             return Marshal.PtrToStringUni(returnValue);
