@@ -24,6 +24,10 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
+    // enable WebKit devtools
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"WebKitDeveloperExtras"];
+
+    
     NSString *appDir = [[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"];
     NSString *mainJSPath = [appDir stringByAppendingPathComponent:@"main.js"];
     

@@ -7,14 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A3C03391ECCDC9E00643964 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5A3C03311ECCDC9200643964 /* index.html */; };
+		5A3C033A1ECCDCA100643964 /* index.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5A3C03321ECCDC9200643964 /* index.js */; };
+		5A3C033B1ECCDCA400643964 /* main.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5A3C03331ECCDC9200643964 /* main.js */; };
+		5A3C033C1ECCDCA600643964 /* package.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5A3C03341ECCDC9200643964 /* package.json */; };
+		5A3C033F1ECCDDFB00643964 /* ENOJSTray.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C033E1ECCDDFB00643964 /* ENOJSTray.m */; };
+		5A3C03421ECCDE0400643964 /* ENOJSNativeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C03411ECCDE0400643964 /* ENOJSNativeImage.m */; };
+		5A3C03451ECCDE1100643964 /* ENOJSIPCMain.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3C03441ECCDE1100643964 /* ENOJSIPCMain.m */; };
 		5AA9DBB31EB9F58B00EF7CC9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBB21EB9F58B00EF7CC9 /* AppDelegate.m */; };
 		5AA9DBB61EB9F58B00EF7CC9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBB51EB9F58B00EF7CC9 /* main.m */; };
 		5AA9DBB81EB9F58B00EF7CC9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5AA9DBB71EB9F58B00EF7CC9 /* Assets.xcassets */; };
 		5AA9DBBB1EB9F58B00EF7CC9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA9DBB91EB9F58B00EF7CC9 /* MainMenu.xib */; };
 		5AA9DBC51EBA08BF00EF7CC9 /* ENOBrowserWindowController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBC31EBA08BF00EF7CC9 /* ENOBrowserWindowController.m */; };
-		5AA9DBCF1EBA0BFC00EF7CC9 /* index.html in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBC81EBA0BDD00EF7CC9 /* index.html */; };
-		5AA9DBD01EBA0BFC00EF7CC9 /* main.js in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBC91EBA0BDD00EF7CC9 /* main.js */; };
-		5AA9DBD11EBA0BFC00EF7CC9 /* package.json in CopyFiles */ = {isa = PBXBuildFile; fileRef = 5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */; };
 		5AA9DBD41EBA0D1200EF7CC9 /* ENOJavaScriptApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBD31EBA0D1200EF7CC9 /* ENOJavaScriptApp.m */; };
 		5AA9DBDE1EBA4F7B00EF7CC9 /* ENOJSPath.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBDD1EBA4F7B00EF7CC9 /* ENOJSPath.m */; };
 		5AA9DBE41EBA4F9B00EF7CC9 /* ENOJSUrl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBE31EBA4F9B00EF7CC9 /* ENOJSUrl.m */; };
@@ -32,15 +36,26 @@
 			dstPath = app;
 			dstSubfolderSpec = 7;
 			files = (
-				5AA9DBCF1EBA0BFC00EF7CC9 /* index.html in CopyFiles */,
-				5AA9DBD01EBA0BFC00EF7CC9 /* main.js in CopyFiles */,
-				5AA9DBD11EBA0BFC00EF7CC9 /* package.json in CopyFiles */,
+				5A3C03391ECCDC9E00643964 /* index.html in CopyFiles */,
+				5A3C033A1ECCDCA100643964 /* index.js in CopyFiles */,
+				5A3C033B1ECCDCA400643964 /* main.js in CopyFiles */,
+				5A3C033C1ECCDCA600643964 /* package.json in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		5A3C03311ECCDC9200643964 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = index.html; path = "test-tray/index.html"; sourceTree = "<group>"; };
+		5A3C03321ECCDC9200643964 /* index.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = index.js; path = "test-tray/index.js"; sourceTree = "<group>"; };
+		5A3C03331ECCDC9200643964 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; name = main.js; path = "test-tray/main.js"; sourceTree = "<group>"; };
+		5A3C03341ECCDC9200643964 /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = package.json; path = "test-tray/package.json"; sourceTree = "<group>"; };
+		5A3C033D1ECCDDFB00643964 /* ENOJSTray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSTray.h; sourceTree = "<group>"; };
+		5A3C033E1ECCDDFB00643964 /* ENOJSTray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSTray.m; sourceTree = "<group>"; };
+		5A3C03401ECCDE0400643964 /* ENOJSNativeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSNativeImage.h; sourceTree = "<group>"; };
+		5A3C03411ECCDE0400643964 /* ENOJSNativeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSNativeImage.m; sourceTree = "<group>"; };
+		5A3C03431ECCDE1100643964 /* ENOJSIPCMain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSIPCMain.h; sourceTree = "<group>"; };
+		5A3C03441ECCDE1100643964 /* ENOJSIPCMain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSIPCMain.m; sourceTree = "<group>"; };
 		5AA9DBAE1EB9F58A00EF7CC9 /* ElectrinoTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ElectrinoTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5AA9DBB11EB9F58B00EF7CC9 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		5AA9DBB21EB9F58B00EF7CC9 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -81,9 +96,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A3C03301ECCDC8700643964 /* test-tray */ = {
+			isa = PBXGroup;
+			children = (
+				5A3C03311ECCDC9200643964 /* index.html */,
+				5A3C03321ECCDC9200643964 /* index.js */,
+				5A3C03331ECCDC9200643964 /* main.js */,
+				5A3C03341ECCDC9200643964 /* package.json */,
+			);
+			name = "test-tray";
+			sourceTree = "<group>";
+		};
 		5AA9DBA51EB9F58A00EF7CC9 = {
 			isa = PBXGroup;
 			children = (
+				5A3C03301ECCDC8700643964 /* test-tray */,
 				5AA9DBC71EBA0BDD00EF7CC9 /* test-app */,
 				5AA9DBB01EB9F58A00EF7CC9 /* Electrino */,
 				5AA9DBAF1EB9F58A00EF7CC9 /* Products */,
@@ -144,12 +171,18 @@
 				5AA9DBE31EBA4F9B00EF7CC9 /* ENOJSUrl.m */,
 				5AA9DBE51EBA502000EF7CC9 /* ENOJSBrowserWindow.h */,
 				5AA9DBE61EBA502000EF7CC9 /* ENOJSBrowserWindow.m */,
+				5A3C033D1ECCDDFB00643964 /* ENOJSTray.h */,
+				5A3C033E1ECCDDFB00643964 /* ENOJSTray.m */,
+				5A3C03401ECCDE0400643964 /* ENOJSNativeImage.h */,
+				5A3C03411ECCDE0400643964 /* ENOJSNativeImage.m */,
+				5A3C03431ECCDE1100643964 /* ENOJSIPCMain.h */,
+				5A3C03441ECCDE1100643964 /* ENOJSIPCMain.m */,
 				5AA9DBE81EBA502D00EF7CC9 /* ENOJSApp.h */,
 				5AA9DBE91EBA502D00EF7CC9 /* ENOJSApp.m */,
-				5AA9DBEB1EBA55B700EF7CC9 /* ENOJSProcess.h */,
-				5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */,
 				5AA9DBEE1EBA564600EF7CC9 /* ENOJSConsole.h */,
 				5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */,
+				5AA9DBEB1EBA55B700EF7CC9 /* ENOJSProcess.h */,
+				5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */,
 			);
 			name = "JS API implementations";
 			sourceTree = "<group>";
@@ -232,9 +265,12 @@
 				5AA9DBED1EBA55B700EF7CC9 /* ENOJSProcess.m in Sources */,
 				5AA9DBEA1EBA502D00EF7CC9 /* ENOJSApp.m in Sources */,
 				5AA9DBE41EBA4F9B00EF7CC9 /* ENOJSUrl.m in Sources */,
+				5A3C03421ECCDE0400643964 /* ENOJSNativeImage.m in Sources */,
 				5AA9DBC51EBA08BF00EF7CC9 /* ENOBrowserWindowController.m in Sources */,
 				5AA9DBB31EB9F58B00EF7CC9 /* AppDelegate.m in Sources */,
 				5AA9DBD41EBA0D1200EF7CC9 /* ENOJavaScriptApp.m in Sources */,
+				5A3C03451ECCDE1100643964 /* ENOJSIPCMain.m in Sources */,
+				5A3C033F1ECCDDFB00643964 /* ENOJSTray.m in Sources */,
 				5AA9DBF01EBA564600EF7CC9 /* ENOJSConsole.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -385,6 +421,7 @@
 				5AA9DBC11EB9F58B00EF7CC9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

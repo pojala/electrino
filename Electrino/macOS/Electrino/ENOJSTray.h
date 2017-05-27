@@ -1,8 +1,8 @@
 //
-//  ENOJSApp.h
+//  ENOJSTray.h
 //  Electrino
 //
-//  Created by Pauli Olavi Ojala on 03/05/17.
+//  Created by Pauli Ojala on 17/05/2017.
 //  Copyright © 2017 Pauli Olavi Ojala.
 //
 //  This software may be modified and distributed under the terms of the MIT license.  See the LICENSE file for details.
@@ -10,22 +10,21 @@
 
 #import <Foundation/Foundation.h>
 #import <JavaScriptCore/JavaScriptCore.h>
-@class ENOJavaScriptApp;
 
 
-@protocol ENOJSAppExports <JSExport>
+@protocol ENOJSTrayExports <JSExport>
+
+- (instancetype)initWithIcon:(id)icon;
 
 JSExportAs(on,
 - (void)on:(NSString *)event withCallback:(JSValue *)cb
 );
 
+- (NSDictionary *)getBounds;
+
 @end
 
 
-@interface ENOJSApp : NSObject <ENOJSAppExports>
-
-@property (nonatomic, weak) ENOJavaScriptApp *jsApp;
-
-- (BOOL)emitReady:(NSError **)outError;
+@interface ENOJSTray : NSObject <ENOJSTrayExports>
 
 @end
