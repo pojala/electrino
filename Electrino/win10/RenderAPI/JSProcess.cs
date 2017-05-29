@@ -18,11 +18,6 @@ namespace RenderAPI
             }
         }
 
-        public void Test()
-        {
-            System.Diagnostics.Debug.WriteLine("test method called");
-        }
-        
         private AppVersions _versions = new AppVersions();
 
         public AppVersions Versions

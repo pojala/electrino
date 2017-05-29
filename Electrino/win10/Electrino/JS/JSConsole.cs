@@ -22,7 +22,7 @@ namespace Electrino.JS
             {
                 args[i - 1] = JSValToString(arguments[i]);
             }
-            Debug.WriteLine(String.Join(", ", args));
+            App.Log(String.Join(", ", args));
             return JavaScriptValue.Undefined;
         }
     }

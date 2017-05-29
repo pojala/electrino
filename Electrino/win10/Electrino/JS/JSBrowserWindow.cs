@@ -42,7 +42,7 @@ namespace Electrino.JS
             string url = JSValToString(arguments[1]);
             if (!MainPage.LoadURL(url))
             {
-                Debug.WriteLine("Failed to load url " + url);
+                App.Log("Failed to load url " + url);
             }
             return JavaScriptValue.Undefined;
         }

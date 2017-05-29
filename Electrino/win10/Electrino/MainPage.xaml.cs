@@ -49,7 +49,7 @@ namespace Electrino
 
         void ScriptNotify(object sender, NotifyEventArgs e)
         {
-            System.Diagnostics.Debug.WriteLine($"Event received from {e.CallingUri}: \"{e.Value}\"");
+            App.Log($"Event received from {e.CallingUri}: \"{e.Value}\"");
         }
 
         private void AddRenderApis()

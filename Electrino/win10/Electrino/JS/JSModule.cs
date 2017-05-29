@@ -17,8 +17,11 @@ namespace Electrino.JS
 
         public static void AttachModule(JavaScriptValue module, AbstractJSModule subModule)
         {
-            Debug.Assert(Native.JsSetProperty(module, JavaScriptPropertyId.FromString(subModule.GetId()),
-                subModule.GetModule(), false) == JavaScriptErrorCode.NoError, "Failed to attach module");
+            if (Native.JsSetProperty(module, JavaScriptPropertyId.FromString(subModule.GetId()),
+                subModule.GetModule(), false) != JavaScriptErrorCode.NoError)
+            {
+                throw new Exception("Failed to attach module");
+            }
         }
 
         public static void AttachModule(AbstractJSModule module, AbstractJSModule subModule)
@@ -30,10 +33,15 @@ namespace Electrino.JS
         public static void AttachMethod(JavaScriptValue module, JavaScriptNativeFunction method, string id)
         {
             JavaScriptValue requireToString;
-            Debug.Assert(Native.JsCreateFunction(method, IntPtr.Zero, out requireToString) == JavaScriptErrorCode.NoError, "Failed to create method");
-
-            Debug.Assert(Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id), requireToString, false)
-                == JavaScriptErrorCode.NoError, "Failed to define tostring on require");
+            if (Native.JsCreateFunction(method, IntPtr.Zero, out requireToString) != JavaScriptErrorCode.NoError)
+            {
+                throw new Exception("Failed to create method");
+            }
+            if (Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id), requireToString, false)
+                != JavaScriptErrorCode.NoError)
+            {
+                throw new Exception("Failed to define tostring on require");
+            }
         }
 
         public static void AttachMethod(AbstractJSModule module, JavaScriptNativeFunction method, string id)
@@ -44,8 +52,11 @@ namespace Electrino.JS
 
         public static void AttachProperty(JavaScriptValue module, JavaScriptValue property, string id)
         {
-            Debug.Assert(Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id),
-                property, false) == JavaScriptErrorCode.NoError, "Failed to attach property");
+            if (Native.JsSetProperty(module, JavaScriptPropertyId.FromString(id),
+                property, false) != JavaScriptErrorCode.NoError)
+            {
+                throw new Exception("Failed to attach property");
+            }
         }
 
         public static void AttachProperty(AbstractJSModule module, JavaScriptValue method, string id)
@@ -58,7 +69,10 @@ namespace Electrino.JS
             val = val.ConvertToString();
             IntPtr returnValue = IntPtr.Zero;
             UIntPtr stringLength;
-            Debug.Assert(Native.JsStringToPointer(val, out returnValue, out stringLength) == JavaScriptErrorCode.NoError, "Failed to convert return value.");
+            if (Native.JsStringToPointer(val, out returnValue, out stringLength) != JavaScriptErrorCode.NoError)
+            {
+                throw new Exception("Failed to convert return value.");
+            }
             return Marshal.PtrToStringUni(returnValue);
         }
 
@@ -75,11 +89,17 @@ namespace Electrino.JS
 
             if (asFunction)
             {
-                Debug.Assert(Native.JsCreateFunction(Main, IntPtr.Zero, out module) == JavaScriptErrorCode.NoError, "Failed to create function");
+                if (Native.JsCreateFunction(Main, IntPtr.Zero, out module) != JavaScriptErrorCode.NoError)
+                {
+                    throw new Exception("Failed to create function");
+                }
             }
             else
             {
-                Debug.Assert(Native.JsCreateObject(out module) == JavaScriptErrorCode.NoError, "Failed to create module");
+                if (Native.JsCreateObject(out module) != JavaScriptErrorCode.NoError)
+                {
+                    throw new Exception("Failed to create module");
+                }
             }
 
             AttachMethod(ToString, "toString");

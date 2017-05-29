@@ -40,11 +40,18 @@ namespace Electrino
             this.Suspending += OnSuspending;
         }
 
+        public static void Log(string msg)
+        {
+#if DEBUG
+            Debug.WriteLine(msg);
+#endif
+        }
+
         private async void Run()
         {
             string js = await ReadJS("main.js");
-            Debug.WriteLine(jsApp.Init());
-            Debug.WriteLine(jsApp.RunScript(js));
+            Log(jsApp.Init());
+            Log(jsApp.RunScript(js));
             Ready();
         }
 
@@ -87,7 +94,7 @@ namespace Electrino
         {
             if (instance == null)
             {
-                Debug.WriteLine("App no ready yet");
+                Log("App no ready yet");
                 return;
             }
             App.instance._NewWindow();
