@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -28,6 +29,7 @@ namespace Electrino
             instance = this;
             InitializeComponent();
             webView1.ScriptNotify += ScriptNotify;
+            webView1.ContainsFullScreenElementChanged += webView1_ContainsFullScreenElementChanged;
 
             //webView1.Navigate(new Uri("ms-appx-web:///test-app/index.html"));
         }
@@ -55,6 +57,20 @@ namespace Electrino
         private void AddRenderApis()
         {
             webView1.AddWebAllowedObject("process", new RenderAPI.JSProcess());
+        }
+
+        private void webView1_ContainsFullScreenElementChanged(WebView sender, object args)
+        {
+            var applicationView = ApplicationView.GetForCurrentView();
+
+            if (sender.ContainsFullScreenElement)
+            {
+                applicationView.TryEnterFullScreenMode();
+            }
+            else if (applicationView.IsFullScreenMode)
+            {
+                applicationView.ExitFullScreenMode();
+            }
         }
     }
 }
