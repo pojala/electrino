@@ -14,7 +14,9 @@
     <h1>Hello World!</h1>
     We are using Electrino:
     <script>
-        document.write(process.versions.electrino + ", running on: " + process.platform);
+        document.write(process.versions.electrino + ", running on: " + process.platform + ", " + process.arch + "<br>");
+        var os = require("os");
+        document.write(os.release());
     </script>
 </body>
 </html>

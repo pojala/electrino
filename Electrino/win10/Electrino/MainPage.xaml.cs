@@ -57,6 +57,7 @@ namespace Electrino
         private void AddRenderApis()
         {
             webView1.AddWebAllowedObject("process", new RenderAPI.JSProcess());
+            webView1.AddWebAllowedObject("require", new RenderAPI.JSRequire().Main);
         }
 
         private void webView1_ContainsFullScreenElementChanged(WebView sender, object args)
