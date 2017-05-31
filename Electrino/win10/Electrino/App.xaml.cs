@@ -17,6 +17,7 @@ using Windows.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Windows.Storage;
+using Windows.UI.ViewManagement;
 
 namespace Electrino
 {
@@ -90,18 +91,21 @@ namespace Electrino
             }
         }
 
-        public static void NewWindow()
+        public static void NewWindow(int width, int height)
         {
             if (instance == null)
             {
                 Log("App no ready yet");
                 return;
             }
-            App.instance._NewWindow();
+            App.instance._NewWindow(width, height);
         }
 
-        private void _NewWindow()
+        private void _NewWindow(int width, int height)
         {
+            ApplicationView.PreferredLaunchViewSize = new Size(width, height);
+            ApplicationView.PreferredLaunchWindowingMode = ApplicationViewWindowingMode.PreferredLaunchViewSize;            
+
             Frame rootFrame = Window.Current.Content as Frame;
 
             // Do not repeat app initialization when the Window already has content,
@@ -113,7 +117,6 @@ namespace Electrino
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
                 
-
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
@@ -127,7 +130,6 @@ namespace Electrino
             }
             // Ensure the current window is active
             Window.Current.Activate();
-
         }
 
         /// <summary>
