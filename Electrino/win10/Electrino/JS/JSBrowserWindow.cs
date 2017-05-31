@@ -38,12 +38,11 @@ namespace Electrino.JS
     class JSBrowserWindowInstance : AbstractJSModule
     {
         private JToken options;
-        // I don't really like putting this here, I think we should probably have a class that contains all our constants
-        private const int defaultWindowWidth = 800, defaultWindowHeight = 600;
         private Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>> listeners = new Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>>();
 
         public JSBrowserWindowInstance(JToken options) : base("BrowserWindowInstance")
         {
+            const int defaultWindowWidth = 800, defaultWindowHeight = 600;
             int width = 0, height = 0;
             this.options = options;
 
