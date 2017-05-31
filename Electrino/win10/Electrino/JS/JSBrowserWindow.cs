@@ -44,27 +44,19 @@ namespace Electrino.JS
 
         public JSBrowserWindowInstance(JToken options) : base("BrowserWindowInstance")
         {
+            int width = 0, height = 0;
             this.options = options;
 
             AttachMethod(LoadURL, "loadURL");
             AttachMethod(On, "on");
 
-            if (this.options != null)
-            {
-                int width = 0, height = 0;
+            Int32.TryParse(options["width"].ToString(), out width);
+            Int32.TryParse(options["height"].ToString(), out height);
 
-                Int32.TryParse(options["width"].ToString(), out width);
-                Int32.TryParse(options["height"].ToString(), out height);
+            if (width <= 0) width = defaultWindowWidth;
+            if (height <= 0) height = defaultWindowHeight;
 
-                if (width <= 0) width = defaultWindowWidth;
-                if (height <= 0) height = defaultWindowHeight;
-
-                App.NewWindow(width, height);
-            }
-            else
-            {
-                App.NewWindow(defaultWindowWidth, defaultWindowHeight);
-            }
+            App.NewWindow(width, height);
         }
         protected JavaScriptValue LoadURL(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
