@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.ApplicationModel;
 using Windows.Foundation.Metadata;
 
 namespace RenderAPI
@@ -15,6 +16,14 @@ namespace RenderAPI
             get
             {
                 return "win32";
+            }
+        }
+
+        public string Arch
+        {
+            get
+            {
+                return Package.Current.Id.Architecture.ToString();
             }
         }
 
