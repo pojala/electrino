@@ -125,6 +125,7 @@
     <Compile Include="Hosting\JavaScriptValueType.cs" />
     <Compile Include="Hosting\Native.cs" />
     <Compile Include="JavaScriptApp.cs" />
+    <Compile Include="JS\JavaScriptValueToJTokenConverter.cs" />
     <Compile Include="JS\JSApp.cs" />
     <Compile Include="JS\JSBrowserWindow.cs" />
     <Compile Include="JS\JSConsole.cs" />
@@ -171,6 +172,9 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>5.3.3</Version>
+    </PackageReference>
+    <PackageReference Include="Newtonsoft.Json">
+      <Version>10.0.2</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>

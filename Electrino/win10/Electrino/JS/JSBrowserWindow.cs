@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ChakraHost.Hosting;
 using System.Diagnostics;
+using Newtonsoft.Json.Linq;
 
 namespace Electrino.JS
 {
@@ -22,20 +23,37 @@ namespace Electrino.JS
                 return JavaScriptValue.CreateTypeError(JavaScriptValue.FromString("BrowserWindow must be constructed"));
             }
 
-            JSBrowserWindowInstance instance = new JSBrowserWindowInstance();
+            var options = JavaScriptValueToJTokenConverter.Convert(arguments[1]);
+
+            JSBrowserWindowInstance instance = new JSBrowserWindowInstance(options);
             return instance.GetModule();
         }
     }
 
     class JSBrowserWindowInstance : AbstractJSModule
     {
+        private JToken options;
         private Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>> listeners = new Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>>();
 
-        public JSBrowserWindowInstance() : base("BrowserWindowInstance")
+        public JSBrowserWindowInstance(JToken options) : base("BrowserWindowInstance")
         {
+            this.options = options;
+
             AttachMethod(LoadURL, "loadURL");
             AttachMethod(On, "on");
-            App.NewWindow();
+
+            if (this.options != null)
+            {
+                int width = 0, height = 0;
+
+                Int32.TryParse(options["width"].ToString(), out width);
+                Int32.TryParse(options["height"].ToString(), out height);
+
+                if (width <= 0) width = 800;
+                if (height <= 0) height = 600;
+
+                App.NewWindow(width, height);
+            }
         }
         protected JavaScriptValue LoadURL(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
         {
