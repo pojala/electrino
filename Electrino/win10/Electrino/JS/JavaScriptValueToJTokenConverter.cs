@@ -4,6 +4,7 @@ using System;
 
 namespace Electrino.JS
 {
+    // Borrowed from: https://www.microsoft.com/reallifecode/2016/06/02/hybrid-apps-using-c-and-javascript-with-chakracore/
     public sealed class JavaScriptValueToJTokenConverter
     {
         private static readonly JToken s_true = new JValue(true);

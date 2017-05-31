@@ -135,6 +135,7 @@
     <Compile Include="JS\JSProcess.cs" />
     <Compile Include="JS\JSRequire.cs" />
     <Compile Include="JS\JSUrl.cs" />
+    <Compile Include="JS\JTokenToJavaScriptValueConverter.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ChakraHost.Hosting;
-using System.Diagnostics;
+﻿using ChakraHost.Hosting;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
 
 namespace Electrino.JS
 {
@@ -23,7 +19,16 @@ namespace Electrino.JS
                 return JavaScriptValue.CreateTypeError(JavaScriptValue.FromString("BrowserWindow must be constructed"));
             }
 
-            var options = JavaScriptValueToJTokenConverter.Convert(arguments[1]);
+            JToken options;
+            try
+            {
+                options = JavaScriptValueToJTokenConverter.Convert(arguments[1]);
+            }
+            catch (Exception)
+            {
+                // If no object is passed to the BrowserWindow constructor we'll provide a default one
+                options = JObject.Parse("{ width: 800, height: 600 }");
+            }
 
             JSBrowserWindowInstance instance = new JSBrowserWindowInstance(options);
             return instance.GetModule();
@@ -33,6 +38,8 @@ namespace Electrino.JS
     class JSBrowserWindowInstance : AbstractJSModule
     {
         private JToken options;
+        // I don't really like putting this here, I think we should probably have a class that contains all our constants
+        private const int defaultWindowWidth = 800, defaultWindowHeight = 600;
         private Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>> listeners = new Dictionary<string, List<Tuple<JavaScriptValue, JavaScriptValue>>>();
 
         public JSBrowserWindowInstance(JToken options) : base("BrowserWindowInstance")
@@ -49,10 +56,14 @@ namespace Electrino.JS
                 Int32.TryParse(options["width"].ToString(), out width);
                 Int32.TryParse(options["height"].ToString(), out height);
 
-                if (width <= 0) width = 800;
-                if (height <= 0) height = 600;
+                if (width <= 0) width = defaultWindowWidth;
+                if (height <= 0) height = defaultWindowHeight;
 
                 App.NewWindow(width, height);
+            }
+            else
+            {
+                App.NewWindow(defaultWindowWidth, defaultWindowHeight);
             }
         }
         protected JavaScriptValue LoadURL(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
