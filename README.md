@@ -15,6 +15,16 @@ The current implementation is only for macOS. A Windows port using Microsoft Edg
 Read more about Electrino in this post on DailyJS:
 https://medium.com/dailyjs/put-your-electron-app-on-a-diet-with-electrino-c7ffdf1d6297
 
+### Current Support
+
+Electrino currently supports the following API implementations:
+
+* app
+* BrowserWindow
+* ipcMain
+* Tray
+* nativeImage
+
 ### Roadmap
 
 The plan is to examine API usage of real-world apps that use Electron but don't really need the full capabilities. Good candidates are desktop utilities, menu bar apps and other small apps that users typically leave open. (For large productivity-style apps, Electron is a better choice.)
