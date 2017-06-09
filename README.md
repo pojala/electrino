@@ -1,5 +1,7 @@
 # electrino
 
+:warning: **Do not use this in production. This project is in its early stages** :warning:
+
 A desktop runtime for apps built on web technologies, using the system's own web browser engine.
 
 Electrino is an experimental featherweight alternative to the popular and powerful [Electron](https://github.com/electron/electron). It implements a minuscule portion of the APIs available in Electron, but the output app size is much smaller.
@@ -12,10 +14,9 @@ This comparison is completely unfair because Electrino currently doesn't do anyt
 
 The current implementation is only for macOS. A Windows port using Microsoft Edge seems potentially interesting though.
 
-Read more about Electrino in this post on DailyJS:
-https://medium.com/dailyjs/put-your-electron-app-on-a-diet-with-electrino-c7ffdf1d6297
+Read more about Electrino in [this post on DailyJS](https://medium.com/dailyjs/put-your-electron-app-on-a-diet-with-electrino-c7ffdf1d6297)
 
-### Current Support
+### Supported API's
 
 Electrino currently supports the following API implementations:
 
@@ -35,4 +36,5 @@ If you have a small Electron-based Mac app and you'd like to try putting it on a
 
 ### Contact
 
-Pauli Olavi Ojala / @pauliooj / pauli @ lacquer.fi
+* Pauli Olavi Ojala / @pauliooj / pauli @ lacquer.fi
+* Amila Welihinda / @amilajack / amilajack @ gmail.com
