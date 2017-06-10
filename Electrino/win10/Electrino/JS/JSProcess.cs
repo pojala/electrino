@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ChakraHost.Hosting;
+using Windows.ApplicationModel;
 
 namespace Electrino.JS
 {
@@ -14,6 +15,8 @@ namespace Electrino.JS
         public JSProcess() : base("process")
         {
             AttachProperty(JavaScriptValue.FromString("win32"), "platform");
+            AttachProperty(JavaScriptValue.FromString(Package.Current.Id.Architecture.ToString()), "arch");
+            AttachModule(new JSProcessVersions());
         }
     }
 

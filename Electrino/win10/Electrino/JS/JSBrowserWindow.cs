@@ -7,9 +7,27 @@ namespace Electrino.JS
 {
     class JSBrowserWindow : AbstractJSModule
     {
+        private static JSBrowserWindow instance;
+        private static List<JSBrowserWindowInstance> windows;
+
         public JSBrowserWindow() : base("BrowserWindow", true)
         {
+            instance = this;
+            windows = new List<JSBrowserWindowInstance>();
+        }
 
+        public static JSBrowserWindow GetInstance()
+        {
+            return instance;
+        }
+
+        // TODO support sending event to specific browser window
+        public void CallAll(string key)
+        {
+            foreach (JSBrowserWindowInstance window in windows)
+            {
+                window.Call(key);
+            }
         }
 
         protected override JavaScriptValue Main(JavaScriptValue callee, bool isConstructCall, JavaScriptValue[] arguments, ushort argumentCount, IntPtr callbackData)
@@ -31,6 +49,7 @@ namespace Electrino.JS
             }
 
             JSBrowserWindowInstance instance = new JSBrowserWindowInstance(options);
+            windows.Add(instance);
             return instance.GetModule();
         }
     }
@@ -83,6 +102,19 @@ namespace Electrino.JS
             eventListeners.Add(Tuple.Create(arguments[2], arguments[0]));
             arguments[2].AddRef();
             return JavaScriptValue.Undefined;
+        }
+
+        public void Call(string key)
+        {
+            List<Tuple<JavaScriptValue, JavaScriptValue>> eventListeners;
+            listeners.TryGetValue(key, out eventListeners);
+            if (eventListeners != null)
+            {
+                foreach (Tuple<JavaScriptValue, JavaScriptValue> listener in eventListeners)
+                {
+                    listener.Item1.CallFunction(new JavaScriptValue[] { listener.Item2 });
+                }
+            }
         }
     }
 }
