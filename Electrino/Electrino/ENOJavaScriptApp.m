@@ -90,15 +90,66 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
         [weakSelf _jsException:exception];
     };
     
-    self.jsContext[@"require"] = ^(NSString *arg) {
-        id module = weakSelf.jsModules[arg];
-        return module;
+	self.jsContext[@"require"] = ^(NSString *arg) {
+		
+		NSString *appDir = [[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:@"app"] stringByAppendingString:@"/"];
+		
+		if ([arg hasSuffix:@".js"]) { // If a javascript file is being directly referenced
+			JSContext *tmpContext = [weakSelf newContextForEvaluation];
+			
+			[tmpContext evaluateScript:[NSString stringWithContentsOfURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]] encoding:NSUTF8StringEncoding error:NULL]];
+            JSValue *module = tmpContext[@"module"];
+            return (id)[module valueForProperty:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
+		} else if (weakSelf.jsModules[arg] != nil) {
+			id module = weakSelf.jsModules[arg];
+			return module;
+		}
+		
+		BOOL isDirectory;
+		BOOL doesExist = [[NSFileManager defaultManager] fileExistsAtPath:[appDir stringByAppendingString:arg] isDirectory:&isDirectory];
+		if (doesExist && isDirectory) {
+			// Find where the starting point is within package.json
+			NSData *packageJSON = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:[[appDir stringByAppendingString:arg] stringByAppendingString:@"/package.json"]]];
+			if (packageJSON == nil) {
+				return (id)nil;
+			}
+			NSDictionary *packageDictionary = [NSJSONSerialization JSONObjectWithData:packageJSON options:0 error:NULL];
+			if (packageDictionary == nil || packageDictionary[@"main"] == nil) {
+				return (id)nil;
+			}
+			NSString *mainJSFile = packageDictionary[@"main"];
+			NSURL *fileURL = [NSURL fileURLWithPath:packageDictionary[@"main"] relativeToURL:[NSURL fileURLWithPath:[appDir stringByAppendingString:arg]]];
+			mainJSFile = [@"/" stringByAppendingString:mainJSFile];
+			NSString *jsFileContents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:NULL];
+			
+			JSContext *tmpContext = [weakSelf newContextForEvaluation];
+			
+			[tmpContext evaluateScript:jsFileContents];
+            JSValue *module = tmpContext[@"module"];
+            return (id)[module valueForProperty:@"exports"]; // Casted to id as the compile doesn't like multiple types of return values when no return value is specified
+		} else {
+			// Module doesn't exist!
+		}
+		return (id)nil;
+		
     };
     
     self.jsContext[@"process"] = [[ENOJSProcess alloc] init];
     self.jsContext[@"console"] = [[ENOJSConsole alloc] init];
     
     return self;
+}
+
+// Create a new context for just evaluating the file
+// ISSUE: JSContext does not include -copyWithZone: method, so we have to manually copy the required methods.
+-(JSContext*)newContextForEvaluation
+{
+	JSContext* newContext = [[JSContext alloc] initWithVirtualMachine:self.jsVM];
+	newContext[@"require"] = self.jsContext[@"require"];
+	newContext[@"process"] = self.jsContext[@"process"];
+	newContext[@"console"] = self.jsContext[@"console"];
+    [newContext evaluateScript:@"var exports = {}; var module = { exports }"]; // Evaluated so the developer doesnt have to
+	return newContext;
 }
 
 - (void)dealloc
@@ -142,7 +193,7 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
         }
         return NO; // --
     }
-    
+	
     NSLog(@"%s done", __func__);
     
     return YES;

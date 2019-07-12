@@ -27,6 +27,7 @@
 		5AA9DBED1EBA55B700EF7CC9 /* ENOJSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEC1EBA55B700EF7CC9 /* ENOJSProcess.m */; };
 		5AA9DBF01EBA564600EF7CC9 /* ENOJSConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */; };
 		5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */; };
+		BC44C7D01EBF2D0E008C569A /* app in Resources */ = {isa = PBXBuildFile; fileRef = BC44C7CF1EBF2D0E008C569A /* app */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -65,9 +66,6 @@
 		5AA9DBBC1EB9F58B00EF7CC9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5AA9DBC21EBA08BE00EF7CC9 /* ENOBrowserWindowController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOBrowserWindowController.h; sourceTree = "<group>"; };
 		5AA9DBC31EBA08BF00EF7CC9 /* ENOBrowserWindowController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOBrowserWindowController.m; sourceTree = "<group>"; };
-		5AA9DBC81EBA0BDD00EF7CC9 /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		5AA9DBC91EBA0BDD00EF7CC9 /* main.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = main.js; sourceTree = "<group>"; };
-		5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = package.json; sourceTree = "<group>"; };
 		5AA9DBD21EBA0D1200EF7CC9 /* ENOJavaScriptApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJavaScriptApp.h; sourceTree = "<group>"; };
 		5AA9DBD31EBA0D1200EF7CC9 /* ENOJavaScriptApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJavaScriptApp.m; sourceTree = "<group>"; };
 		5AA9DBDC1EBA4F7B00EF7CC9 /* ENOJSPath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSPath.h; sourceTree = "<group>"; };
@@ -83,6 +81,7 @@
 		5AA9DBEE1EBA564600EF7CC9 /* ENOJSConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENOJSConsole.h; sourceTree = "<group>"; };
 		5AA9DBEF1EBA564600EF7CC9 /* ENOJSConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENOJSConsole.m; sourceTree = "<group>"; };
 		5AA9DBF11EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ENOBrowserWindowController.xib; sourceTree = "<group>"; };
+		BC44C7CF1EBF2D0E008C569A /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,8 +109,8 @@
 		5AA9DBA51EB9F58A00EF7CC9 = {
 			isa = PBXGroup;
 			children = (
+				BC44C7CF1EBF2D0E008C569A /* app */,
 				5A3C03301ECCDC8700643964 /* test-tray */,
-				5AA9DBC71EBA0BDD00EF7CC9 /* test-app */,
 				5AA9DBB01EB9F58A00EF7CC9 /* Electrino */,
 				5AA9DBAF1EB9F58A00EF7CC9 /* Products */,
 			);
@@ -152,16 +151,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		5AA9DBC71EBA0BDD00EF7CC9 /* test-app */ = {
-			isa = PBXGroup;
-			children = (
-				5AA9DBC81EBA0BDD00EF7CC9 /* index.html */,
-				5AA9DBC91EBA0BDD00EF7CC9 /* main.js */,
-				5AA9DBCA1EBA0BDD00EF7CC9 /* package.json */,
-			);
-			path = "test-app";
-			sourceTree = "<group>";
-		};
 		5AA9DBD51EBA4D8500EF7CC9 /* JS API implementations */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,7 +186,6 @@
 				5AA9DBAA1EB9F58A00EF7CC9 /* Sources */,
 				5AA9DBAB1EB9F58A00EF7CC9 /* Frameworks */,
 				5AA9DBAC1EB9F58A00EF7CC9 /* Resources */,
-				5AA9DBCE1EBA0BEA00EF7CC9 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -246,6 +234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC44C7D01EBF2D0E008C569A /* app in Resources */,
 				5AA9DBB81EB9F58B00EF7CC9 /* Assets.xcassets in Resources */,
 				5AA9DBF21EBA7C0700EF7CC9 /* ENOBrowserWindowController.xib in Resources */,
 				5AA9DBBB1EB9F58B00EF7CC9 /* MainMenu.xib in Resources */,

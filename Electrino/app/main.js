@@ -50,3 +50,11 @@ app.on('activate', () => {
     createWindow()
   }
 })
+
+const module_simple = require('module.js')
+module_simple.custom_function();
+
+const module_folder = require('module_folder')
+module_folder.custom_function();
+
+const module_exports = require('module_exports.js')();
