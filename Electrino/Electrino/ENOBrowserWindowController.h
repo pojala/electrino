@@ -16,6 +16,8 @@
 
 @property (nonatomic, strong) IBOutlet WebView *testWebView;
 
+- (instancetype)initAsResizable:(BOOL)resizable hasFrame:(BOOL)hasFrame;
+
 - (void)loadURL:(NSURL *)url;
 
 @end

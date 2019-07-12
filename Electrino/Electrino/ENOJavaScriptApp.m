@@ -15,6 +15,9 @@
 #import "ENOJSApp.h"
 #import "ENOJSProcess.h"
 #import "ENOJSConsole.h"
+#import "ENOJSTray.h"
+#import "ENOJSNativeImage.h"
+#import "ENOJSIPCMain.h"
 
 
 NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
@@ -26,6 +29,7 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 @property (nonatomic, strong) JSContext *jsContext;
 @property (nonatomic, strong) NSDictionary *jsModules;
 @property (nonatomic, strong) ENOJSApp *jsAppGlobalObject;
+@property (nonatomic, strong) ENOJSIPCMain *jsIPCMain;
 
 @property (nonatomic, assign) BOOL inException;
 
@@ -48,21 +52,30 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
 {
     self = [super init];
     
+    
     self.jsVM = [[JSVirtualMachine alloc] init];
     self.jsContext = [[JSContext alloc] initWithVirtualMachine:self.jsVM];
     
     self.jsAppGlobalObject = [[ENOJSApp alloc] init];
     self.jsAppGlobalObject.jsApp = self;
     
+    self.jsIPCMain = [[ENOJSIPCMain alloc] init];
     
     // initialize available modules
     
     NSMutableDictionary *modules = [NSMutableDictionary dictionary];
     
     modules[@"electrino"] = @{
+                              // singletons
                               @"app": self.jsAppGlobalObject,
+                              @"ipcMain": self.jsIPCMain,
+                              @"nativeImage": [[ENOJSNativeImageAPI alloc] init],
+                              
+                              // classes that can be constructed
                               @"BrowserWindow": [ENOJSBrowserWindow class],
+                              @"Tray": [ENOJSTray class],
                               };
+    
     modules[@"path"] = [[ENOJSPath alloc] init];
     modules[@"url"] = [[ENOJSUrl alloc] init];
     
@@ -185,5 +198,8 @@ NSString * const kENOJavaScriptErrorDomain = @"ENOJavaScriptErrorDomain";
     
     return YES;
 }
+
+
+
 
 @end

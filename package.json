@@ -1,0 +1,25 @@
+{
+  "name": "electrino",
+  "version": "0.0.0",
+  "description": "A desktop runtime for apps built on web technologies, using the system's own web browser engine.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pojala/electrino.git"
+  },
+  "keywords": [],
+  "contributors": [
+    "Amila Welihinda <amilajack@gmail.com> (http://amilajack.com/)"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pojala/electrino/issues"
+  },
+  "homepage": "https://github.com/pojala/electrino#readme"
+}
