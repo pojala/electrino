@@ -1,3 +1,5 @@
+This project appears to be dead, but i plan to add more basic apis to it.
+
 # electrino
 
 :warning: **Do not use this in production. This project is in its early stages** :warning:
