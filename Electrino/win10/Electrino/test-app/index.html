@@ -1,0 +1,22 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Hello World!</title>
+    <style>
+        body {
+            background: white;
+            font-size: 80%;
+        }
+    </style>
+</head>
+<body>
+    <h1>Hello World!</h1>
+    We are using Electrino:
+    <script>
+        document.write(process.versions.electrino + ", running on: " + process.platform + ", " + process.arch + "<br>");
+        var os = require("os");
+        document.write(os.release());
+    </script>
+</body>
+</html>
