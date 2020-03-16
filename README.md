@@ -16,7 +16,7 @@ Feature | Electron | Electrino
 --- | --- | ---
 Comprehensive API | Yes | No
 Small output size | No | Yes
-Cross-platform support | Yes | Mac-only
+Cross-platform support | Yes | Limited to macOS and Windows 10 at this time
 
 ### Supported API's
 
