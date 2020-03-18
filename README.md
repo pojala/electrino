@@ -1,8 +1,8 @@
 # electrino
 
-A desktop runtime for apps built on web technologies, using the system's own web browser engine.
+An experimental desktop runtime for apps built on web technologies, using the system's own web browser engine. The project is still young and accepting contributions.
 
-Electrino is an experimental featherweight alternative to the popular and powerful [Electron](https://github.com/electron/electron). It implements a minuscule portion of the APIs available in Electron, but the output app size is much smaller.
+Electrino aims to be a featherweight alternative to the popular and powerful [Electron](https://github.com/electron/electron). It implements a minuscule portion of the APIs available in Electron, but the output app size is much smaller.
 
 A "Hello World" app takes 115 MB using Electron, but only 167 kB using Electrino:
 
@@ -18,7 +18,13 @@ Comprehensive API | Yes | No
 Small output size | No | Yes
 Cross-platform support | Yes | Limited to macOS and Windows 10 at this time
 
-### Supported API's
+### Contribute
+
+- [x] Integrate `WebView`
+- [ ] Support `require()` calls
+- [ ] Add Node.js backend
+
+### API
 
 Electrino currently supports the following API implementations:
 
